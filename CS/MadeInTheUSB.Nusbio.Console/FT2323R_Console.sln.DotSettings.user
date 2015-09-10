@@ -1,0 +1,16 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=B41664C06C214B2FA9116F822A638DFF/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=B41664C06C214B2FA9116F822A638DFF/Name/@EntryValue">All tests from FT232_UnitTests.cs</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=B41664C06C214B2FA9116F822A638DFF/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements&gt;&lt;UnitTestElement Provider="MSTest" Id="MsTest:FT232xSharp.Lib.UnitTests.FT232R_UnitTests" type="MsTestTestClassElement" TypeName="FT232xSharp.Lib.UnitTests.FT232R_UnitTests" Project="F40678E2-7611-47BB-9A56-D4824825616D" /&gt;&lt;UnitTestElement Provider="MSTest" Id="MsTest:FT232xSharp.Lib.UnitTests.FT232R_UnitTests.testGenerateNewSerialNumber" ParentId="MsTest:FT232xSharp.Lib.UnitTests.FT232R_UnitTests" type="MsTestTestMethodElement" MethodName="testGenerateNewSerialNumber" TypeName="FT232xSharp.Lib.UnitTests.FT232R_UnitTests" Project="F40678E2-7611-47BB-9A56-D4824825616D" /&gt;&lt;UnitTestElement Provider="MSTest" Id="MsTest:FT232xSharp.Lib.UnitTests.FT232R_UnitTests.testGetFT232EEPromAsDictionary" ParentId="MsTest:FT232xSharp.Lib.UnitTests.FT232R_UnitTests" type="MsTestTestMethodElement" MethodName="testGetFT232EEPromAsDictionary" TypeName="FT232xSharp.Lib.UnitTests.FT232R_UnitTests" Project="F40678E2-7611-47BB-9A56-D4824825616D" /&gt;&lt;UnitTestElement Provider="MSTest" Id="MsTest:FT232xSharp.Lib.UnitTests.FT232R_UnitTests.testOpenBySerialNumber" ParentId="MsTest:FT232xSharp.Lib.UnitTests.FT232R_UnitTests" type="MsTestTestMethodElement" MethodName="testOpenBySerialNumber" TypeName="FT232xSharp.Lib.UnitTests.FT232R_UnitTests" Project="F40678E2-7611-47BB-9A56-D4824825616D" /&gt;&lt;/Elements&gt;&lt;/Session&gt;</s:String>
+	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=CDD18D8CCEC54E52B780114E0DEC2566/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=CDD18D8CCEC54E52B780114E0DEC2566/Name/@EntryValue">testGetFT232rEEPromAsDictionary</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=CDD18D8CCEC54E52B780114E0DEC2566/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
+	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=F0CEBB0E9F5340CCA5980B7DA8B97EFE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=F0CEBB0E9F5340CCA5980B7DA8B97EFE/Name/@EntryValue">Session</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=F0CEBB0E9F5340CCA5980B7DA8B97EFE/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
+	
+	
+	
+	
+	
+	</wpf:ResourceDictionary>

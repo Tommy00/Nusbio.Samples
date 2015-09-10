@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{89AAC166-2058-4657-9A64-AAF602F06327}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MadeInTheUSB.Nusbio.Components</RootNamespace>
+    <AssemblyName>MadeInTheUSB.Nusbio.Components</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MadeInTheUSB.Nusbio.Lib, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\Bin\MadeInTheUSB.Nusbio.Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Components\Adafruit\4Digits7Segments.cs">
+      <Link>Adafruit\4Digits7Segments.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Adafruit\Adafruit_GFX.cs">
+      <Link>Adafruit\Adafruit_GFX.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Adafruit\LEDBackpack.cs">
+      <Link>Adafruit\LEDBackpack.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Adafruit\MCP4725_12BitDac.cs">
+      <Link>Adafruit\MCP4725_12BitDac.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Adafruit\MultiLEDBackpackManager.cs">
+      <Link>Adafruit\MultiLEDBackpackManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\APA102_RGB_LED\APA102LEDStrip.cs">
+      <Link>APA102_RGB_LED\APA102LEDStrip.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\ArduinoClient.cs">
+      <Link>ArduinoClient.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\BiColorLed.cs">
+      <Link>BiColorLed.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\BiColorLedMCP4231Manager.cs">
+      <Link>BiColorLedMCP4231Manager.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Button.cs">
+      <Link>Button.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\EEPROM_24LCxxx.cs">
+      <Link>EEPROM_24LCxxx.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\GenericButton.cs">
+      <Link>GenericButton.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\GPioToneExtensionMethods.cs">
+      <Link>GPioToneExtensionMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\LCD.cs">
+      <Link>LCD.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Led.cs">
+      <Link>Led.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\MachineInfo.cs">
+      <Link>MachineInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\MCP230XX.cs">
+      <Link>MCP230XX.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\MCP413x.cs">
+      <Link>MCP413x.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\MotionSensorPIR.cs">
+      <Link>MotionSensorPIR.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\PhotocellResistor.cs">
+      <Link>PhotocellResistor.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Potentiometer.cs">
+      <Link>Potentiometer.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Relay.cs">
+      <Link>Relay.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Shift.cs">
+      <Link>Shift.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\ShiftRegister74HC595.cs">
+      <Link>ShiftRegister74HC595.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>::set BIN_FOLDER=..\Components\Bin
+::if "$(ConfigurationName)" == "Release" echo Updating folder:%25BIN_FOLDER%25
+::if "$(ConfigurationName)" == "Release" echo "$(TargetPath)" 
+::if "$(ConfigurationName)" == "Release" copy "$(TargetPath)" "%25BIN_FOLDER%25"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
