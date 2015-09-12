@@ -1,1 +1,0 @@
-D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.Buttons\bin\Debug\MadeInTheUSB.Nusbio.TheButton.exe.config

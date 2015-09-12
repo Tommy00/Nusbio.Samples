@@ -269,8 +269,6 @@ namespace LightSensorConsole
                 return;
             }
 
-            Nusbio.BaudRate = 1200;
-
             using (var nusbio = new Nusbio(serialNumber)) // , 
             {
                 if(!InitLEDMatrixes(nusbio)) return;

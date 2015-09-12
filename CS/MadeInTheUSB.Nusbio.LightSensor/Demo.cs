@@ -64,13 +64,13 @@ namespace LightSensorConsole
 
             using (var nusbio = new Nusbio(serialNumber)) // , inputGpios: new List<NusbioGpio>() {lightSensor}
             {
-                var photocellResistor = new PhotocellResistor(nusbio, lightSensor);
+                var photocellResistor = new LightSensorWithCapacitor(nusbio, lightSensor);
 
                 photocellResistor.AddCalibarationValue ("Bright"      , 00,  10)
                                   .AddCalibarationValue("OfficeDay"   , 10,  50)
                                   .AddCalibarationValue("OfficeNight" , 50, 100)
                                   .AddCalibarationValue("Darkish"     , 100, 300)
-                                  .AddCalibarationValue("CompleteDark", 300, PhotocellResistor.TimeOutMaxValue);
+                                  .AddCalibarationValue("CompleteDark", 300, LightSensorWithCapacitor.TimeOutMaxValue);
                 
                 Cls(nusbio);
                 while(nusbio.Loop(2000))

@@ -62,7 +62,7 @@ namespace MadeInTheUSB.Sensor
     /// Also due to the speed of execution of the code, do not use a smaller capacitor. 47uF to 100uF is advised.
     /// 
     /// </summary>
-    public class PhotocellResistor
+    public class LightSensorWithCapacitor
     {
         public const int TimeOutMaxValue = 16384;
         public const int ErrorValue = -1;
@@ -127,14 +127,14 @@ namespace MadeInTheUSB.Sensor
             _nusbio.SetPinMode(_gpio, PinMode.Output);
         }
 
-        public PhotocellResistor(Nusbio nusbio, NusbioGpio gpio, int sampleFrequencySeconds = 2000)
+        public LightSensorWithCapacitor(Nusbio nusbio, NusbioGpio gpio, int sampleFrequencySeconds = 2000)
         {
             _timeOut = new TimeOut(sampleFrequencySeconds);
             this._gpio              = gpio;
             this._nusbio           = nusbio;
         }
 
-        public PhotocellResistor AddCalibarationValue(string name, int startValue, int endValue)
+        public LightSensorWithCapacitor AddCalibarationValue(string name, int startValue, int endValue)
         {
             this._calibrationValues.Add(new PhotocellResistorCalibration()
             {

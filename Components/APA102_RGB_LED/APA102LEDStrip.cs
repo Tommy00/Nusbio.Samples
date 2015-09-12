@@ -353,7 +353,7 @@ namespace MadeInTheUSB.Components.APA
                 });
             }
             intBuffer.AddRange(new List<int>() { 0xFF,0xFF,0xFF,0xFF}); // End frame
-            this.Transfert(intBuffer.ToArray());
+            this.Transfer(intBuffer.ToArray());
             return this;
         }
 
@@ -366,22 +366,22 @@ namespace MadeInTheUSB.Components.APA
         public void StartFrame()
         {
             this.Init();
-            this.Transfert(0, 0, 0, 0);
+            this.Transfer(0, 0, 0, 0);
         }
 
         public void EndFrame()
         {
-            this.Transfert(0xFF, 0xFF, 0xFF, 0xFF);
+            this.Transfer(0xFF, 0xFF, 0xFF, 0xFF);
         }
 
-        //private void Transfert(int b)
+        //private void Transfer(int b)
         //{
         //    var gs = new GpioSequence((this._DigitalWriteRead as Nusbio).GetGpioMask());
         //    gs.ShiftOut(this._DigitalWriteRead as Nusbio, this._dataPin, this._clockPin, b);
         //    gs.Send(this._DigitalWriteRead as Nusbio);
         //}
 
-        //public void Transfert(int b0, int b1, int b2, int b3)
+        //public void Transfer(int b0, int b1, int b2, int b3)
         // {
         //     var gs = new GpioSequence((this._DigitalWriteRead as Nusbio).GetGpioMask());
         //     gs = Shift.ShiftOutHardWare(this._DigitalWriteRead as Nusbio, this._dataPin, this._clockPin, b0, gs, send: false);
@@ -390,9 +390,9 @@ namespace MadeInTheUSB.Components.APA
         //     gs = Shift.ShiftOutHardWare(this._DigitalWriteRead as Nusbio, this._dataPin, this._clockPin, b3, gs, send: true);
         // }
 
-        private void Transfert(params int[] buffer)
+        private void Transfer(params int[] buffer)
         {
-            var gs = new GpioSequence((this._nusbio as Nusbio).GetGpioMask());
+            var gs = new GpioSequence((this._nusbio as Nusbio).GetGpioMask(), this._nusbio.GetTransferBufferSize());
             var i = 0;
             while (i < buffer.Length)
             {
@@ -407,7 +407,7 @@ namespace MadeInTheUSB.Components.APA
                     gs.Send(this._nusbio as Nusbio);
                     var lastMaskValue = gs[gs.Count - 1];
                     //gs = new GpioSequence((this._DigitalWriteRead as Nusbio).GetGpioMask());
-                    gs = new GpioSequence(lastMaskValue);
+                    gs = new GpioSequence(lastMaskValue, this._nusbio.GetTransferBufferSize());
                 }
             }
             if (gs.Count > 0)

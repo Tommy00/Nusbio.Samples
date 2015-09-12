@@ -54,7 +54,7 @@ namespace MadeInTheUSB.Adafruit
 
         public MCP4725_12BitDac(Nusbio nusbio, NusbioGpio sdaOutPin,  NusbioGpio sclPin, byte deviceId, int waitTimeAfterWriteOperation = 5, bool debug = false)
         {
-            this._i2c = new I2CEngine(nusbio, sdaOutPin, sdaOutPin, sclPin, deviceId, debug);
+            this._i2c = new I2CEngine(nusbio, sdaOutPin, sclPin, deviceId, debug);
         }
 
         public void Begin(byte deviceAddress)

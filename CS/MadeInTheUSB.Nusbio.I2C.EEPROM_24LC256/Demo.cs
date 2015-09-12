@@ -182,7 +182,12 @@ namespace LightSensorConsole
                 }
             }
             t.Stop();
-            Console.WriteLine("{0} error(s), Time:{1}", totalErrorCount, t.ElapsedMilliseconds);
+            
+            Console.WriteLine("{0} error(s), Time:{1}, {2:0.00} kb/s", 
+                totalErrorCount, 
+                t.ElapsedMilliseconds,
+                _eeprom.MaxByte*1.0/t.ElapsedMilliseconds
+                );
             Console.WriteLine("Hit enter key");
             Console.ReadLine();
         }
@@ -242,13 +247,11 @@ namespace LightSensorConsole
 
                         if (k == ConsoleKey.R)
                         {
-                            //ReadEEPROMByte(10);
                             ReadAndVerifyEEPROMPage(10);
                             Cls(nusbio);
                         }
                         if (k == ConsoleKey.A)
                         {
-                            //ReadEEPROMByte(512);
                             ReadAndVerifyEEPROMPage(512);
                         }
                         if (k == ConsoleKey.Q) break;

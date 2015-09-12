@@ -41,9 +41,6 @@
     <Reference Include="DynamicSugar">
       <HintPath>.\DynamicSugar.dll</HintPath>
     </Reference>
-    <Reference Include="MadeInTheUSB.Nusbio.Lib">
-      <HintPath>..\..\Components\Bin\MadeInTheUSB.Nusbio.Lib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -62,6 +59,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MadeInTheUSB.Nusbio.Lib\MadeInTheUSB.Nusbio.Lib.csproj">
+      <Project>{4844352f-58d7-4d53-8559-89e0ce27d96b}</Project>
+      <Name>MadeInTheUSB.Nusbio.Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,1 @@
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.I2C.8x8LedMatrix\bin\Debug\MadeInTheUSB.Nusbio.I2C.8x8LedMatrix.exe.config

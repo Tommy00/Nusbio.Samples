@@ -31,9 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MadeInTheUSB.Nusbio.Lib, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Components\Bin\MadeInTheUSB.Nusbio.Lib.dll</HintPath>
+    <Reference Include="MadeInTheUSB.Nusbio.Lib">
+      <HintPath>..\Components\bin\MadeInTheUSB.Nusbio.Lib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -63,59 +62,56 @@
     <Compile Include="..\Components\APA102_RGB_LED\APA102LEDStrip.cs">
       <Link>APA102_RGB_LED\APA102LEDStrip.cs</Link>
     </Compile>
-    <Compile Include="..\Components\ArduinoClient.cs">
-      <Link>ArduinoClient.cs</Link>
-    </Compile>
     <Compile Include="..\Components\BiColorLed.cs">
-      <Link>BiColorLed.cs</Link>
+      <Link>LED\BiColorLed.cs</Link>
     </Compile>
     <Compile Include="..\Components\BiColorLedMCP4231Manager.cs">
-      <Link>BiColorLedMCP4231Manager.cs</Link>
+      <Link>LED\BiColorLedMCP4231Manager.cs</Link>
     </Compile>
     <Compile Include="..\Components\Button.cs">
-      <Link>Button.cs</Link>
+      <Link>BUTTONS\Button.cs</Link>
     </Compile>
     <Compile Include="..\Components\EEPROM_24LCxxx.cs">
-      <Link>EEPROM_24LCxxx.cs</Link>
+      <Link>EEPROM\EEPROM_24LCxxx.cs</Link>
     </Compile>
     <Compile Include="..\Components\GenericButton.cs">
-      <Link>GenericButton.cs</Link>
+      <Link>BUTTONS\GenericButton.cs</Link>
     </Compile>
     <Compile Include="..\Components\GPioToneExtensionMethods.cs">
       <Link>GPioToneExtensionMethods.cs</Link>
     </Compile>
     <Compile Include="..\Components\LCD.cs">
-      <Link>LCD.cs</Link>
+      <Link>LCD.Display\LCD.cs</Link>
     </Compile>
     <Compile Include="..\Components\Led.cs">
-      <Link>Led.cs</Link>
+      <Link>LED\Led.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\LightSensorWithCapacitor.cs">
+      <Link>SENSOR\Light\LightSensorWithCapacitor.cs</Link>
     </Compile>
     <Compile Include="..\Components\MachineInfo.cs">
       <Link>MachineInfo.cs</Link>
     </Compile>
     <Compile Include="..\Components\MCP230XX.cs">
-      <Link>MCP230XX.cs</Link>
+      <Link>GpioExpander\MCP230XX.cs</Link>
     </Compile>
     <Compile Include="..\Components\MCP413x.cs">
-      <Link>MCP413x.cs</Link>
+      <Link>POTENTIOMETER\MCP413x.cs</Link>
     </Compile>
     <Compile Include="..\Components\MotionSensorPIR.cs">
-      <Link>MotionSensorPIR.cs</Link>
-    </Compile>
-    <Compile Include="..\Components\PhotocellResistor.cs">
-      <Link>PhotocellResistor.cs</Link>
+      <Link>SENSOR\Motion\MotionSensorPIR.cs</Link>
     </Compile>
     <Compile Include="..\Components\Potentiometer.cs">
-      <Link>Potentiometer.cs</Link>
+      <Link>POTENTIOMETER\Potentiometer.cs</Link>
     </Compile>
     <Compile Include="..\Components\Relay.cs">
       <Link>Relay.cs</Link>
     </Compile>
     <Compile Include="..\Components\Shift.cs">
-      <Link>Shift.cs</Link>
+      <Link>GpioExpander\Shift.cs</Link>
     </Compile>
     <Compile Include="..\Components\ShiftRegister74HC595.cs">
-      <Link>ShiftRegister74HC595.cs</Link>
+      <Link>GpioExpander\ShiftRegister74HC595.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

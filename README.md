@@ -13,7 +13,7 @@ Nusbio also offers:
 
 http://www.MadeInTheUSB.net
 
-Copyright (C) 2015 MadeInTheUSB
+Copyright (C) 2015 MadeInTheUSB LLC
 
 # License 
 
