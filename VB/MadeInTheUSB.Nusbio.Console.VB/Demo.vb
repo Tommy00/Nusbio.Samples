@@ -80,7 +80,7 @@ Module Demo
             nusbio.CancelAsynchronousSequencer()
             Return False
         Else
-            nusbio.StartAsynchronousSequencer(50, seq:=DS.List(NusbioGpio.Gpio0, NusbioGpio.Gpio1, NusbioGpio.Gpio2, NusbioGpio.Gpio3, NusbioGpio.Gpio4, NusbioGpio.Gpio5, _
+            nusbio.StartAsynchronousSequencer(200, seq:=DS.List(NusbioGpio.Gpio0, NusbioGpio.Gpio1, NusbioGpio.Gpio2, NusbioGpio.Gpio3, NusbioGpio.Gpio4, NusbioGpio.Gpio5, _
                 NusbioGpio.Gpio6, NusbioGpio.Gpio7, NusbioGpio.Gpio7, NusbioGpio.Gpio6, NusbioGpio.Gpio5, NusbioGpio.Gpio4, _
                 NusbioGpio.Gpio3, NusbioGpio.Gpio2, NusbioGpio.Gpio1, NusbioGpio.Gpio0))
             Return True
@@ -100,26 +100,27 @@ Module Demo
 
         Dim maxRepeat = 3
         Dim maxGpio = 8
+        Dim wait = 300
 
         For i = 0 To maxRepeat - 1
             For g = 0 To maxGpio - 1
                 nusbio(g).DigitalWrite(PinState.High)
             Next
-            Thread.Sleep(200)
+            Thread.Sleep(wait)
             For g = 0 To maxGpio - 1
                 nusbio(g).DigitalWrite(PinState.Low)
             Next
-            Thread.Sleep(200)
+            Thread.Sleep(wait)
         Next
         For i = 0 To maxRepeat - 1
             For g = 0 To maxGpio - 1
                 nusbio(g).AsLed.[Set](True)
             Next
-            Thread.Sleep(200)
+            Thread.Sleep(wait)
             For g = 0 To maxGpio - 1
                 nusbio(g).AsLed.[Set](False)
             Next
-            Thread.Sleep(200)
+            Thread.Sleep(wait)
         Next
     End Sub
 

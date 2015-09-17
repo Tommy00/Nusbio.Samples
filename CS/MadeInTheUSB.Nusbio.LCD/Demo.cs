@@ -21,7 +21,7 @@
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
         THE SOFTWARE.
  
-    Written by FT for MadeInTheUSB.net
+    Written by FT for MadeInTheUSB
     MIT license, all text above must be included in any redistribution
 */
 using System;

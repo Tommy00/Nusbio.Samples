@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>MadeInTheUSB.Nusbio.Library</id>
+    <title>Nusbio .NET Library</title>
+    <version>1.0.14</version>
+    <authors>MadeInTheUSB LLC</authors>
+    <owners>MadeInTheUSB LLC</owners>
+    <copyright>Copyright © MadeInTheUSB LLC 2015</copyright>
+    <summary>
+      .NET Library to program the USB Device Nusbio 1.x from MadeInTheUSB
+    </summary>
+    <description>
+      .NET Library to program the USB Device Nusbio 1.x from MadeInTheUSB
+    </description>
+    <language>en-US</language>
+    <projectUrl>http://Nusbio.net</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <tags>C#.NET gpio iot</tags>
+    <licenseUrl>http://madeintheusb.net/NuGet/License.rtf</licenseUrl>
+    <iconUrl>http://madeintheusb.net/NuGet/Nusbio.128x128.Icon.png</iconUrl>
+  </metadata>
+ <files>
+    <file src="..\MadeInTheUSB.Nusbio.Lib.dll" target="lib\net40"/>
+  </files>
+</package>
+
+<!--
+http://nuget.codeplex.com/documentation?title=Nuspec%20Format
+nuget push -source http://packages.nuget.org/v1/ DynamicSugarSharpLibrary.nupkg af4148d0-20ae-4904-80c5-8c76fafe81a0
+-->

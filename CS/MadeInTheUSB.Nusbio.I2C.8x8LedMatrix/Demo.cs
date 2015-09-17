@@ -233,8 +233,8 @@ namespace LightSensorConsole
 
         public static bool InitLEDMatrixes(Nusbio nusbio)
         {
-            var clockPin           = NusbioGpio.Gpio0; // White
-            var dataOutPin         = NusbioGpio.Gpio1; // Green
+            var clockPin           = NusbioGpio.Gpio6; // White
+            var dataOutPin         = NusbioGpio.Gpio7; // Green
             // BackPack address A0, A1, A2, (Carefull the label are inversed)
             // None soldered 0x70
             // A0 Shorted = 0x70 + 1 = 0x71

@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MadeInTheUSB</RootNamespace>
-    <AssemblyName>MadeInTheUSB.Nusbio.NusbioRGB</AssemblyName>
+    <AssemblyName>MadeInTheUSB.Nusbio.Extension.APA102_2_StripAdapter</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

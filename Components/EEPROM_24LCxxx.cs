@@ -1,6 +1,6 @@
 /*
    Copyright (C) 2015 MadeInTheUSB LLC
-   Written by FT for MadeInTheUSB.net
+   Written by FT for MadeInTheUSB
  
    Support of the Microship EEPROM 24LCXXX series
  

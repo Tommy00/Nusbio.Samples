@@ -2,7 +2,7 @@
  
    MCP23008 and MCP230XX I2C Support for the Nusbio
    Copyright (C) 2015 MadeInTheUSB LLC
-   Written by FT for MadeInTheUSB.net
+   Written by FT for MadeInTheUSB
   
    MIT License (MIT)
   
@@ -198,7 +198,7 @@ namespace MadeInTheUSB
             if (mcpIndex > (this.GetMaxGPIO()-1))
                 throw new ArgumentException(string.Format("Gpio {0} not available", gpioIndex));
 
-            int iodir = this._i2c.Ready1Byte8BitsCommand(MCP230XX_IODIR);
+            int iodir = this._i2c.Send1ByteRead1Byte(MCP230XX_IODIR);
             if (iodir == -1)
                 throw new ArgumentException(string.Format("Cannot read state of MCP230XX"));
             
@@ -213,13 +213,13 @@ namespace MadeInTheUSB
 
         public int GetPinsMode()
         {
-            int iodir = this._i2c.Ready1Byte8BitsCommand(MCP230XX_IODIR);
+            int iodir = this._i2c.Send1ByteRead1Byte(MCP230XX_IODIR);
             return iodir;
         }
 
         public int GetPullUpMode()
         {
-            int m = this._i2c.Ready1Byte8BitsCommand(MCP230XX_GPPU);
+            int m = this._i2c.Send1ByteRead1Byte(MCP230XX_GPPU);
             return m;
         }
 
@@ -237,7 +237,7 @@ namespace MadeInTheUSB
         public byte GetGpioMask()
         {
             // read the current status of the GPIO pins
-            return (byte)this._i2c.Ready1Byte8BitsCommand(MCP230XX_GPIO); 
+            return (byte)this._i2c.Send1ByteRead1Byte(MCP230XX_GPIO); 
         }
 
         public void SetGpioMask(byte mask)
@@ -346,7 +346,7 @@ namespace MadeInTheUSB
             if (mcpGpioIndex > 7)
                 throw new InvalidGpioOperationException(string.Format("Invalid gpio index:{0}", gpioIndex));
 
-            int gppu = this._i2c.Ready1Byte8BitsCommand(MCP230XX_GPPU);
+            int gppu = this._i2c.Send1ByteRead1Byte(MCP230XX_GPPU);
             if (gppu == -1)
                 throw new InvalidGpioOperationException(string.Format("Command MCP230XX_GPPU({0}) failed gpio index:{1}", MCP230XX_GPPU, gpioIndex));
 

@@ -279,7 +279,7 @@ Yellow
             ConsoleEx.WriteMenu(-1, 2, "Q)uit");
             ConsoleEx.WriteMenu(-1, 3, "");
 
-            int brigthness  = 6;
+            int brigthness = 6;
             int wait        = GetWaitTimeUnit(ledStrip)/2;
             var quit        = false;
             ledStrip.AllOff();
@@ -611,26 +611,29 @@ Yellow
             
             using (var nusbio = new Nusbio(serialNumber))
             {
-                
                 // 30 led per meter strip
-                APA102LEDStrip ledStrip1 = APA102LEDStrip.Extensions.TwoStripAdapter.Init(nusbio, APA102LEDStrip.Extensions.LedPerMeter._30LedPerMeter, APA102LEDStrip.Extensions.StripIndex._0, 10);
+                APA102LEDStrip ledStrip0 = APA102LEDStrip.Extensions.TwoStripAdapter.Init(nusbio, APA102LEDStrip.Extensions.LedPerMeter._30LedPerMeter, APA102LEDStrip.Extensions.StripIndex._0, 10);
+
+                //ledStrip0 = new APA102LEDStrip(nusbio, 10, 2, 3).AllOff();
+                
                 // 60 led per meter strip
 
                 if (AskForStripType() == '6')
                 {
-                    ledStrip1 = APA102LEDStrip.Extensions.TwoStripAdapter.Init(nusbio, APA102LEDStrip.Extensions.LedPerMeter._60LedPerMeter, APA102LEDStrip.Extensions.StripIndex._0, 60);
+                    ledStrip0 = APA102LEDStrip.Extensions.TwoStripAdapter.Init(nusbio, APA102LEDStrip.Extensions.LedPerMeter._60LedPerMeter, APA102LEDStrip.Extensions.StripIndex._0, 60);
                 }
 
-                ledStrip1.AllOff();
+                ledStrip0.AllOff();
                 Cls(nusbio);
 
                 // For more information about the Nusbio APA102 2 Strip Adapter to control up to 2 strips 
                 // with 10 RGB LED on each strip powered from Nusbio. See following url
                 // http://www.madeintheusb.net/TutorialExtension/Index#Apa102RgbLedStrip
 
-                APA102LEDStrip ledStrip2 = APA102LEDStrip.Extensions.TwoStripAdapter.Init(nusbio, APA102LEDStrip.Extensions.LedPerMeter._30LedPerMeter, APA102LEDStrip.Extensions.StripIndex._1, 10);
-                if(ledStrip2 != null)
-                    ledStrip2.AllOff();
+                APA102LEDStrip ledStrip1 = APA102LEDStrip.Extensions.TwoStripAdapter.Init(nusbio, APA102LEDStrip.Extensions.LedPerMeter._30LedPerMeter, APA102LEDStrip.Extensions.StripIndex._1, 10);
+                //ledStrip2 = null;
+                if(ledStrip1 != null)
+                    ledStrip1.AllOff();
 
                 while(nusbio.Loop())
                 {
@@ -641,34 +644,37 @@ Yellow
                             break;
 
                         if (k == ConsoleKey.R)
-                            RGBDemo(ledStrip1);
+                            RGBDemo(ledStrip0);
+
+                        //if (k == ConsoleKey.Z)
+                        //    RGBDemo(ledStrip2);
 
                         if (k == ConsoleKey.B)
-                            BrigthnessDemo(ledStrip1);
+                            BrigthnessDemo(ledStrip0);
 
                         if (k == ConsoleKey.A)
-                            AmpTest(ledStrip1);
+                            AmpTest(ledStrip0);
 
                         if (k == ConsoleKey.W)
-                            RainbowDemo(ledStrip1, 10, ledStrip2);
+                            RainbowDemo(ledStrip0, 6, ledStrip1);
 
                         if (k == ConsoleKey.D1)
-                            RainbowDemo(ledStrip1, 1);
+                            RainbowDemo(ledStrip0, 1);
 
                         if (k == ConsoleKey.M)
-                            MultiShades(ledStrip1);
+                            MultiShades(ledStrip0);
 
                         if (k == ConsoleKey.S)
-                            ScrollDemo(ledStrip1);
+                            ScrollDemo(ledStrip0);
 
                         if (k == ConsoleKey.T)
-                            AlternateLineDemo(ledStrip1);
+                            AlternateLineDemo(ledStrip0);
 
                         if (k == ConsoleKey.P)
-                            SpeedTest(ledStrip1);
+                            SpeedTest(ledStrip0);
 
                         if (k == ConsoleKey.L)
-                            LineDemo(ledStrip1);
+                            LineDemo(ledStrip0);
 
                         Cls(nusbio);
                     }

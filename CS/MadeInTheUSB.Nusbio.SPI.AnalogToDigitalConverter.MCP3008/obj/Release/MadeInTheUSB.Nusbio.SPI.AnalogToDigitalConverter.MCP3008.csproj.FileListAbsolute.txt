@@ -1,0 +1,20 @@
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.exe.config
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\NuGet\NuGet.exe
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\NuGet\CreatePackage.bat
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\NuGet\install.ps1
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\NuGet\MadeInTheUSB.Nusbio.Lib.nuspec
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\NuGet\NuGet Package Creation.md
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.exe
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.pdb
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\MadeInTheUSB.Nusbio.Components.dll
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\MadeInTheUSB.Nusbio.Lib.dll
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\Nancy.dll
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\MadeInTheUSB.Nusbio.Internal.dll
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\Nancy.Hosting.Self.dll
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\DynamicSugar.dll
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\Newtonsoft.Json.dll
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\MadeInTheUSB.Nusbio.Lib.pdb
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\MadeInTheUSB.Nusbio.Components.pdb
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Release\MadeInTheUSB.Nusbio.Internal.pdb
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\obj\Release\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.exe
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\obj\Release\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.pdb

@@ -57,6 +57,7 @@ Namespace LedConsole
         End Sub
 
         Public Shared Sub SimpleAnimation(biColorLeds As BiColorLedStrip, initialStateIndex As List(Of Integer))
+            Dim wait = 450
             Console.Clear()
             ConsoleEx.WriteMenu(-1, 2, "Q)uit")
             biColorLeds.AllOff()
@@ -67,7 +68,7 @@ Namespace LedConsole
             biColorLeds(3).StateIndex = initialStateIndex(3)
             While True
                 biColorLeds.Set(incState:=True, firstStateIndex:=1)
-                MadeInTheUSB.WinUtil.TimePeriod.Sleep(350 * 2)
+                MadeInTheUSB.WinUtil.TimePeriod.Sleep(wait * 2)
                 If Console.KeyAvailable Then
                     Dim k = Console.ReadKey(True).Key
                     If k = ConsoleKey.Q Then

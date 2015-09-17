@@ -1,6 +1,6 @@
 /*
    Copyright (C) 2015 MadeInTheUSB LLC
-   Written by FT for MadeInTheUSB.net
+   Written by FT for MadeInTheUSB
 
    Port of the wiring_shift.c - shiftOut() function
    Part of Arduino - http://www.arduino.cc/

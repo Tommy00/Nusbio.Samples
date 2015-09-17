@@ -109,7 +109,7 @@ Yellow
 
         public static void ColorsSequence(APA102LEDStrip ledStripe0, APA102LEDStrip ledStripe1)
         {
-            var wait              = 200;
+            var wait              = 300;
             var quit              = false;
             ledStripe0.Brightness = 7;
             ledStripe0.AllOff();
@@ -226,7 +226,7 @@ Yellow
             ConsoleEx.TitleBar(0, "Rainbow Demo", ConsoleColor.White, ConsoleColor.DarkBlue);
             ConsoleEx.WriteMenu(-1, 4, "Q)uit");
 
-            int wait        = 10;
+            int wait        = 20;
             var quit        = false;
             ledStripe.AllOff();
             ledStripe2.AllOff();
@@ -332,7 +332,7 @@ Yellow
                     }
 
                     if (Console.KeyAvailable) break;
-                    ledStrip0.Wait(wait * 7); // Wait when the fade in is done
+                    ledStrip0.Wait(wait * 10); // Wait when the fade in is done
 
                     for (var b = APA102LEDStrip.MAX_BRIGHTNESS; b >= 0; b -= 2)
                     {

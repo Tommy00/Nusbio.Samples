@@ -12,7 +12,7 @@
     are a port from Adafruit library Adafruit-LED-Backpack-Library
     https://github.com/adafruit/Adafruit-LED-Backpack-Library
   
-    Written by FT for MadeInTheUSB.net
+    Written by FT for MadeInTheUSB
     MIT license, all text above must be included in any redistribution
 
    The MIT License (MIT)

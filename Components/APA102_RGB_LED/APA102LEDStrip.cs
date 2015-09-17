@@ -399,7 +399,7 @@ namespace MadeInTheUSB.Components.APA
                 if (gs.EmptySpace >= GpioSequence.BIT_PER_BYTE)
                 {
                     // Add one byte to the gpio sequence
-                    gs.ShiftOut(this._nusbio as Nusbio, this._dataPin, this._clockPin, buffer[i], dataAndClockOptimized: true);
+                    gs.ShiftOut(this._nusbio as Nusbio, this._dataPin, this._clockPin, buffer[i]);
                     i += 1;
                 }
                 else

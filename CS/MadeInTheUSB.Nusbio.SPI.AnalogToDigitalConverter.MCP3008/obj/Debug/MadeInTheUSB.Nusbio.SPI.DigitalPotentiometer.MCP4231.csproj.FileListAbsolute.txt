@@ -1,0 +1,9 @@
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP4231\bin\Debug\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.exe.config
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP4231\bin\Debug\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.exe
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP4231\bin\Debug\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.pdb
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP4231\bin\Debug\MadeInTheUSB.Nusbio.Components.dll
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP4231\bin\Debug\MadeInTheUSB.Nusbio.Lib.dll
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP4231\bin\Debug\MadeInTheUSB.Nusbio.Components.pdb
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP4231\bin\Debug\MadeInTheUSB.Nusbio.Lib.pdb
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP4231\obj\Debug\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.exe
+D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP4231\obj\Debug\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.pdb

@@ -31,7 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MadeInTheUSB.Nusbio.Lib">
+    <Reference Include="MadeInTheUSB.Nusbio.Lib, Version=1.0.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Components\bin\MadeInTheUSB.Nusbio.Lib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -58,6 +59,9 @@
     </Compile>
     <Compile Include="..\Components\Adafruit\MultiLEDBackpackManager.cs">
       <Link>Adafruit\MultiLEDBackpackManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\AnalogToDigitalConverter\MCP3008.cs">
+      <Link>AnalogToDigitalConverter\MCP3008.cs</Link>
     </Compile>
     <Compile Include="..\Components\APA102_RGB_LED\APA102LEDStrip.cs">
       <Link>APA102_RGB_LED\APA102LEDStrip.cs</Link>
@@ -86,9 +90,6 @@
     <Compile Include="..\Components\Led.cs">
       <Link>LED\Led.cs</Link>
     </Compile>
-    <Compile Include="..\Components\LightSensorWithCapacitor.cs">
-      <Link>SENSOR\Light\LightSensorWithCapacitor.cs</Link>
-    </Compile>
     <Compile Include="..\Components\MachineInfo.cs">
       <Link>MachineInfo.cs</Link>
     </Compile>
@@ -107,13 +108,27 @@
     <Compile Include="..\Components\Relay.cs">
       <Link>Relay.cs</Link>
     </Compile>
+    <Compile Include="..\Components\Sensor\AnalogSensor.cs">
+      <Link>SENSOR\AnalogSensor.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Sensor\Light\LightSensorWithCapacitor.cs">
+      <Link>SENSOR\Light\LightSensorWithCapacitor.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Sensor\Temperature\AnalogTemperatureSensor.cs">
+      <Link>SENSOR\Temperature\AnalogTemperatureSensor.cs</Link>
+    </Compile>
+    <Compile Include="..\Components\Sensor\Temperature\TMP36_Analog_Temperature Sensor.cs">
+      <Link>SENSOR\Temperature2\TMP36_Analog_Temperature Sensor.cs</Link>
+    </Compile>
     <Compile Include="..\Components\Shift.cs">
       <Link>GpioExpander\Shift.cs</Link>
     </Compile>
     <Compile Include="..\Components\ShiftRegister74HC595.cs">
       <Link>GpioExpander\ShiftRegister74HC595.cs</Link>
     </Compile>
+    <Compile Include="Adafruit\MCP9808 _Temperature Sensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SENSOR\Light\AnalogLightSensor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
