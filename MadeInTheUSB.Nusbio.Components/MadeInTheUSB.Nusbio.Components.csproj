@@ -129,6 +129,7 @@
     <Compile Include="Adafruit\MCP9808 _Temperature Sensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SENSOR\Light\AnalogLightSensor.cs" />
+    <Compile Include="SENSOR\Motion\AnalogMotionSensorPIR .cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Nusbio - SPI AnalogToDigitalConverter MCP3008")]
+[assembly: AssemblyTitle("Nusbio - SPI AnalogToDigitalConverter Mcp300X")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MadeInTheUSB LLC")]
-[assembly: AssemblyProduct("Nusbio - SPI AnalogToDigitalConverter MCP3008")]
+[assembly: AssemblyProduct("Nusbio - SPI AnalogToDigitalConverter Mcp300X")]
 [assembly: AssemblyCopyright("Copyright (C) MadeInTheUSB LLC 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

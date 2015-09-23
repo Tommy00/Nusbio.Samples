@@ -54,14 +54,13 @@ namespace MadeInTheUSB.Sensor
         {
             switch (type)
             {
-                case TemperatureType.Celsius: return this._celsiusValue;
+                case TemperatureType.Celsius:    return this._celsiusValue;
                 case TemperatureType.Fahrenheit: return CelsiusToFahrenheit(GetTemperature(TemperatureType.Celsius));
-                case TemperatureType.Kelvin: return CelsiusToKelvin(GetTemperature(TemperatureType.Celsius));
+                case TemperatureType.Kelvin:     return CelsiusToKelvin(GetTemperature(TemperatureType.Celsius));
                 default:
                     throw new ArgumentException();
             }
         }
-
     }
 }
 

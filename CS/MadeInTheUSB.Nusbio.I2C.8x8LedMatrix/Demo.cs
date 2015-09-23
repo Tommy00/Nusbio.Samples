@@ -101,7 +101,7 @@ namespace LightSensorConsole
             int MAX_REPEAT = 5;
             int wait       = 400;
 
-            _multiLEDBackpackManager.SetBrightness(7);
+            _multiLEDBackpackManager.SetBrightness(3);
             _multiLEDBackpackManager.SetRotation(1);
 
             ConsoleEx.Bar(0, 5, "DrawBitmap Demo", ConsoleColor.Yellow, ConsoleColor.Red);
@@ -280,6 +280,11 @@ namespace LightSensorConsole
                     if (Console.KeyAvailable)
                     {
                         var k = Console.ReadKey(true).Key;
+                        if (k == ConsoleKey.L)
+                        {
+                            for(var l=0; l<1000; l++)
+                                Animate();
+                        }
                         if (k == ConsoleKey.A)
                         {
                             Animate();

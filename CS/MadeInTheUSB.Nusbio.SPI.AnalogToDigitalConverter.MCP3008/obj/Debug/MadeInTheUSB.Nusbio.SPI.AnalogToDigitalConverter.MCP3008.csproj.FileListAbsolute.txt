@@ -1,1 +1,0 @@
-D:\DVT\MadeInTheUSB\Nusbio.Samples\CS\MadeInTheUSB.Nusbio.SPI.AnalogToDigitalConverter.MCP3008\bin\Debug\MadeInTheUSB.Nusbio.SPI.DigitalPotentiometer.MCP413X.exe.config

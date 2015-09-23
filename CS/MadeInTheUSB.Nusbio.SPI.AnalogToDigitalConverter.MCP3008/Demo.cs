@@ -45,7 +45,7 @@ namespace DigitalPotentiometerSample
     class Demo
     {
 
-        private static MCP3008 ad;
+        private static Mcp3008 ad;
         static int                      _waitTime = 100; // 20
         static int                      _demoStep = 5;
         
@@ -64,7 +64,7 @@ namespace DigitalPotentiometerSample
 
             ConsoleEx.TitleBar(0, GetAssemblyProduct(), ConsoleColor.Yellow, ConsoleColor.DarkBlue);
             //ConsoleEx.WriteMenu(-1, 2, "0) --- ");
-            ConsoleEx.WriteMenu(-1, 2, "Q)uit");
+            ConsoleEx.WriteMenu(-1, 16, "Q)uit");
             ConsoleEx.TitleBar(ConsoleEx.WindowHeight-2, Nusbio.GetAssemblyCopyright(), ConsoleColor.White, ConsoleColor.DarkBlue);
             ConsoleEx.Bar(0, ConsoleEx.WindowHeight-3, string.Format("Nusbio SerialNumber:{0}, Description:{1}", nusbio.SerialNumber, nusbio.Description), ConsoleColor.Black, ConsoleColor.DarkCyan);
         }
@@ -79,49 +79,58 @@ namespace DigitalPotentiometerSample
                 return;
             }
 
-            Nusbio.BaudRate = 9600;
-
             using (var nusbio = new Nusbio(serialNumber))
             {
                 Cls(nusbio);
+                var halfSeconds = new TimeOut(500);
                 /*
-                    MCP4231
-                    gpio 0 - Click
+                    Mcp300X - SPI Config
+                    gpio 0 - CLOCK
                     gpio 1 - MOSI
                     gpio 2 - MISO
-                    gpio 3 - select
+                    gpio 3 - SELECT
                 */
-                ad = new MCP3008(nusbio, 
-                    selectGpio: NusbioGpio.Gpio3, mosiGpio: NusbioGpio.Gpio1, 
-                    misoGpio: NusbioGpio.Gpio2, clockGpio: NusbioGpio.Gpio0);
-
+                ad = new Mcp3008(nusbio, 
+                    selectGpio: NusbioGpio.Gpio3, mosiGpio:  NusbioGpio.Gpio1, 
+                     misoGpio:  NusbioGpio.Gpio2, clockGpio: NusbioGpio.Gpio0);
                 ad.Begin();
 
-                var halfSeconds = new TimeOut(600);
-
                 var analogTempSensor = new Tmp36AnalogTemperatureSensor(nusbio);
-                var lightSensor = new AnalogLightSensor(nusbio);
+                analogTempSensor.Begin();
+
+                var analogMotionSensor = new AnalogMotionSensor(nusbio, 4);
+                analogMotionSensor.Begin();
+
+                var lightSensor      = new AnalogLightSensor(nusbio);
                 lightSensor.AddCalibarationValue("Dark", 0, 100);
-                lightSensor.AddCalibarationValue("Office Night", 101, 350);
-                lightSensor.AddCalibarationValue("Office Day", 351, 400);
+                lightSensor.AddCalibarationValue("Office Night", 101, 299);
+                lightSensor.AddCalibarationValue("Office Day", 300, 400);
                 lightSensor.AddCalibarationValue("Outdoor Sun Light", 401, 1000);
+                lightSensor.Begin();
 
                 while(nusbio.Loop())
                 {
                     if (halfSeconds.IsTimeOut())
                     {
-                        const int lightSensorAnalogPort = 7;
-                        lightSensor.SetAnalogValue(ad.Read(lightSensorAnalogPort));
-                        ConsoleEx.WriteLine(0, 6, string.Format("Light Sensor CalibratedValue:{0}, ADValue:{1:000.000}", lightSensor.CalibratedValue, lightSensor.AnalogValue), ConsoleColor.Cyan);
+                        const int lightSensorAnalogPort       = 7;
+                        const int motionSensorAnalogPort      = 6;
+                        const int temperatureSensorAnalogPort = 5;
 
-                        analogTempSensor.SetAnalogValue(ad.Read(0));
-                        ConsoleEx.WriteLine(0, 8,
-                            string.Format("Tmp36 Temperature Sensor {0:00.00}C, Fahrenheit:{1:00:00}F, ADValue:{2:0000}, Voltage:{3:0.000}", 
-                            analogTempSensor.GetTemperature(AnalogTemperatureSensor.TemperatureType.Celsius),
-                            analogTempSensor.GetTemperature(AnalogTemperatureSensor.TemperatureType.Fahrenheit),
-                            analogTempSensor.AnalogValue,
-                            analogTempSensor.Voltage
-                            ), ConsoleColor.Cyan);
+
+                        ConsoleEx.WriteLine(0, 2, string.Format("{0,-20}", DateTime.Now, lightSensor.AnalogValue), ConsoleColor.Cyan);
+
+                        lightSensor.SetAnalogValue(ad.Read(lightSensorAnalogPort));
+                        ConsoleEx.WriteLine(0, 4, string.Format("Light Sensor      : {0} (ADValue:{1:000.000})", lightSensor.CalibratedValue.PadRight(18), lightSensor.AnalogValue), ConsoleColor.Cyan);
+
+                        analogTempSensor.SetAnalogValue(ad.Read(temperatureSensorAnalogPort));
+                        ConsoleEx.WriteLine(0, 6, string.Format("Temperature Sensor: {0:00.00}C, {1:00.00}F     (ADValue:{2:0000})    ",  analogTempSensor.GetTemperature(AnalogTemperatureSensor.TemperatureType.Celsius), analogTempSensor.GetTemperature(AnalogTemperatureSensor.TemperatureType.Fahrenheit), analogTempSensor.AnalogValue), ConsoleColor.Cyan);
+
+                        analogMotionSensor.SetAnalogValue(ad.Read(motionSensorAnalogPort));
+                        var motionType = analogMotionSensor.MotionDetected();
+                        if (motionType == MotionSensorPIR.MotionDetectedType.MotionDetected || motionType == MotionSensorPIR.MotionDetectedType.None)
+                        {
+                            ConsoleEx.Write(0, 8, string.Format("Motion Sensor     : {0,-20} (ADValue:{1:000})", motionType, analogMotionSensor.AnalogValue), ConsoleColor.Cyan);
+                        }
                     }
 
                     if (Console.KeyAvailable)

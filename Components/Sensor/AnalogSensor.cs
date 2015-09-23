@@ -55,5 +55,10 @@ namespace MadeInTheUSB.Sensor
         {
             this.AnalogValue = value;
         }
+
+        public void Begin()
+        {
+            
+        }
     }
 }

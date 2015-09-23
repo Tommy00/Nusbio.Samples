@@ -26,12 +26,10 @@
     Written with the help of
         https://rheingoldheavy.com/mcp3008-tutorial-02-sampling-dc-voltage/
   
-    MCP3008 10bit ADC Breakout Board from RheinGoldHeavy.com supported
+    Mcp300X 10bit ADC Breakout Board from RheinGoldHeavy.com supported
     https://rheingoldheavy.com/product/breakout-board-mcp3008/
-  
-  
-    Datasheet http://www.adafruit.com/datasheets/MCP3008.pdf
- 
+    
+    Datasheet http://www.adafruit.com/datasheets/Mcp300X.pdf
 */
 
 using System;
@@ -48,15 +46,21 @@ using MadeInTheUSB.spi;
 namespace MadeInTheUSB
 {
     /// <summary>
-    /// 
+    /// Base class to support analog to digital converters:
+    /// Mcp3008 : 8 AD
+    /// MCP3004 : 4 AD
     /// </summary>
-    public class MCP3008_Base
+    public class MCP300X_Base
     {
-        SPIEngine _spiEngine;
+        readonly SPIEngine _spiEngine;
 
-        public readonly int MAX_PORT = 8;
+        public int MaxAdConverterConverter = 8;
 
-        private List<int> _channels = new List<int>() {
+        /// <summary>
+        /// The 8 analog to digital (AD) channels/ports configured in single mode.
+        /// Differential mode is not implemented.
+        /// </summary>
+        private List<int> _channelInSingleMode = new List<int>() {
             0x08,
             0x09,
             0x0A,
@@ -66,10 +70,21 @@ namespace MadeInTheUSB
             0x0E,
             0x0F
         };
+        
+        public MCP300X_Base(int maxADConverter, Nusbio nusbio, NusbioGpio selectGpio, NusbioGpio mosiGpio, 
+                                                NusbioGpio misoGpio, NusbioGpio clockGpio) 
+        {
+            this._spiEngine              = new SPIEngine(nusbio, selectGpio, mosiGpio, misoGpio, clockGpio);
+            this.MaxAdConverterConverter = maxADConverter;
+        }
 
+        public void Begin()
+        {
+            _spiEngine.Begin();
+        }
 
         /// <summary>
-        /// Read the value of the analog port using software bit banging
+        /// Read the value of one analog port using software bit banging.
         /// </summary>
         /// <param name="port"></param>
         /// <returns></returns>
@@ -97,9 +112,8 @@ namespace MadeInTheUSB
 
             nusbio[this._spiEngine.ClockGpio].DigitalWrite(true);
             nusbio[this._spiEngine.ClockGpio].DigitalWrite(false);    
-
-            // Read bits from adc since it is ADC is 10 bits
-            for(var i = 10; i > 0; i--) {
+            
+            for(var i = 10; i > 0; i--) { // Read bits from adc since it is ADC is 10 bits
                 
                 adcValue +=  Nusbio.ConvertTo1Or0(nusbio[this._spiEngine.MisoGpio].DigitalRead()) << i;
     
@@ -110,61 +124,53 @@ namespace MadeInTheUSB
             return adcValue;
         }
 
-        public MCP3008_Base(Nusbio nusbio, NusbioGpio selectGpio, NusbioGpio mosiGpio, NusbioGpio misoGpio, NusbioGpio clockGpio, NusbioGpio resetGpio = NusbioGpio.None, bool debug = false) {
-
-            this._spiEngine = new SPIEngine(nusbio, selectGpio, mosiGpio, misoGpio, clockGpio, resetGpio, debug);
-        }
-
-        public void Begin()
-        {
-            _spiEngine.Begin();
-        }
-
+        /// <summary>
+        /// Read the value of one analog port using Nusbio spi/hardware acceleration.
+        /// </summary>
+        /// <param name="port"></param>
+        /// <returns></returns>
         public int Read(int port)
         {
-            if ((port > 7) || (port < 0)) return -1; // Wrong adc address return -1
-                
-            //var port2 = (byte)((_channels[port] << 4) + 0x03);
-            var port2 = (byte)((_channels[port] << 4));
-            var junk  = (byte)0;
+            if ((port > 7) || (port < 0))
+                throw new ArgumentException(string.Format("Invalid analog port {0}", port));
+            
+            const byte junk = (byte)0;
+            var port2       = (byte)((_channelInSingleMode[port] << 4));
+            var r1          = this._spiEngine.Transfer(new List<Byte>() { 0x1, port2, junk });
 
-            //var r1 = this._spiEngine.Transfer(new List<Byte>() { 0x01 });
-            if (true)
+            return ValidateOperation(r1);
+        }
+
+        private int ValidateOperation(MadeInTheUSB.spi.SPIEngine.SPIResult result)
+        {
+            if (result.Succeeded && result.ReadBuffer.Count == 3)
             {
-                var r1 = this._spiEngine.Transfer( new List<Byte>() {0x1, port2, junk} );
-                //var r2 = this._spiEngine.Transfer( new List<Byte>() {} );
-                return ValidateOperation(r1);
+                int r = 0;
+                if (WinUtil.BitUtil.IsSet(result.ReadBuffer[1], 1))
+                    r += 256;
+                if (WinUtil.BitUtil.IsSet(result.ReadBuffer[1], 2))
+                    r += 512;
+                r += result.ReadBuffer[2];
+                return r;
             }
             else return -1;
         }
-
-        public int ValidateOperation(MadeInTheUSB.spi.SPIEngine.SPIResult r0)
-        {
-            if (r0.Succeeded && r0.ReadBuffer.Count == 3)
-            {
-                int r = 0;
-                if (WinUtil.BitUtil.IsSet(r0.ReadBuffer[1], 1))
-                    r += 256;
-                if (WinUtil.BitUtil.IsSet(r0.ReadBuffer[1], 2))
-                    r += 512;
-                r += r0.ReadBuffer[2];
-                return r;
-            }
-            return -1;
-        }
     }
     
-    public class MCP3008 : MCP3008_Base
+    public class Mcp3008 : MCP300X_Base
     {
-        public MCP3008(Nusbio nusbio, NusbioGpio selectGpio, NusbioGpio mosiGpio, NusbioGpio misoGpio, NusbioGpio clockGpio, bool debug = false)
-        : base(nusbio, selectGpio, mosiGpio, misoGpio,clockGpio, NusbioGpio.None, debug )
+        public Mcp3008(Nusbio nusbio, NusbioGpio selectGpio, NusbioGpio mosiGpio, NusbioGpio misoGpio, NusbioGpio clockGpio)
+        : base(8, nusbio, selectGpio, mosiGpio, misoGpio,clockGpio)
         {
         }
-
-
-        
     }
 
-
+    public class MCP3004 : MCP300X_Base
+    {
+        public MCP3004(Nusbio nusbio, NusbioGpio selectGpio, NusbioGpio mosiGpio, NusbioGpio misoGpio, NusbioGpio clockGpio)
+        : base(4, nusbio, selectGpio, mosiGpio, misoGpio,clockGpio)
+        {
+        }
+    }
 }
 
