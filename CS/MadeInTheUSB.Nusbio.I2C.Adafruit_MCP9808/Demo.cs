@@ -62,8 +62,6 @@ namespace LightSensorConsole
             ConsoleEx.Bar(0, ConsoleEx.WindowHeight-3, string.Format("Nusbio SerialNumber:{0}, Description:{1}", nusbio.SerialNumber, nusbio.Description), ConsoleColor.Black, ConsoleColor.DarkCyan);
         }
 
-      
-
         public static void Run(string[] args)
         {
             Console.WriteLine("Nusbio initialization");
@@ -75,10 +73,10 @@ namespace LightSensorConsole
                 return;
             }
             
-            var clockPin           = NusbioGpio.Gpio0; // White, Arduino A5
-            var dataOutPin         = NusbioGpio.Gpio1; // Green, Arduino A4
+            var clockPin           = NusbioGpio.Gpio6; // White, Arduino A5
+            var dataOutPin         = NusbioGpio.Gpio5; // Green, Arduino A4
 
-            using (var nusbio = new Nusbio(serialNumber)) // , 
+            using (var nusbio = new Nusbio(serialNumber))
             {
                 _MCP9808_TemperatureSensor = new MCP9808_TemperatureSensor(nusbio, dataOutPin, clockPin);
                 if (!_MCP9808_TemperatureSensor.Begin())
