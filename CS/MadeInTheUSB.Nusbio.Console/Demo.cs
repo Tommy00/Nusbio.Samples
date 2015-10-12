@@ -36,7 +36,48 @@ namespace NusbioConsole
     {
         private static TimePeriod _timePeriod;
 
-        private static void AnimateBlocking2(Nusbio nusbio)
+
+        private static void AnimateBlocking4(Nusbio nusbio)
+        {
+            var maxGpio = 8;
+
+            var gpiosSequence = DS.List(
+                NusbioGpio.Gpio0,
+                NusbioGpio.Gpio1,
+                NusbioGpio.Gpio2,
+                NusbioGpio.Gpio3,
+                NusbioGpio.Gpio4,
+                NusbioGpio.Gpio5,
+                NusbioGpio.Gpio6,
+                NusbioGpio.Gpio7,
+                NusbioGpio.Gpio6,
+                NusbioGpio.Gpio5,
+                NusbioGpio.Gpio4,
+                NusbioGpio.Gpio3,
+                NusbioGpio.Gpio2,
+                NusbioGpio.Gpio1
+            );
+
+            int delay = 100;
+
+            while(true) {
+
+                if (Console.KeyAvailable)
+                {
+                    var k = Console.ReadKey(true);
+                    break;
+                }
+
+                foreach(var g in gpiosSequence) {
+                
+                    nusbio[g].DigitalWrite(PinState.High);
+                    TimePeriod.Sleep(delay);
+                    nusbio[g].DigitalWrite(PinState.Low);
+                }
+            }
+        }
+
+        private static void AnimateBlocking3(Nusbio nusbio)
         {
             var maxGpio = 8;
 
@@ -85,7 +126,7 @@ namespace NusbioConsole
             }
         }
 
-        private static bool AnimateNonBlocking(Nusbio nusbio)
+        private static bool AnimateNonBlocking2(Nusbio nusbio)
         {
             if (nusbio.IsAsynchronousSequencerOn)
             {
@@ -94,7 +135,8 @@ namespace NusbioConsole
             }
             else
             {
-                nusbio.StartAsynchronousSequencer(50, seq: DS.List(
+                nusbio.StartAsynchronousSequencer(100, seq: DS.List(
+
                     NusbioGpio.Gpio0,
                     NusbioGpio.Gpio1,
                     NusbioGpio.Gpio2,
@@ -102,16 +144,15 @@ namespace NusbioConsole
                     NusbioGpio.Gpio4,
                     NusbioGpio.Gpio5,
                     NusbioGpio.Gpio6,
+
                     NusbioGpio.Gpio7,
-                    
-                    NusbioGpio.Gpio7,
+
                     NusbioGpio.Gpio6,
                     NusbioGpio.Gpio5,
                     NusbioGpio.Gpio4,
                     NusbioGpio.Gpio3,
                     NusbioGpio.Gpio2,
-                    NusbioGpio.Gpio1,
-                    NusbioGpio.Gpio0
+                    NusbioGpio.Gpio1
                     
                     ));
                 return true;
@@ -126,7 +167,7 @@ namespace NusbioConsole
                 nusbio.GPIOS[led].AsLed.ReverseSet();
         }
         
-        private static void AnimateBlocking(Nusbio nusbio)
+        private static void AnimateBlocking1(Nusbio nusbio)
         {
             var maxRepeat = 3;
             var maxGpio   = 8;
@@ -197,7 +238,7 @@ namespace NusbioConsole
             NusbioUrlEvent("");
             
             ConsoleEx.WriteMenu(-1, 2, "Gpios: 0) 1) 2) 3) 4) 5) 6) 7) [Shift:Blink Mode]");
-            ConsoleEx.WriteMenu(-1, 4, "F1) Blocking Animation  F2) Non Blocking Animation  F3) Blocking Animation 2");
+            ConsoleEx.WriteMenu(-1, 4, "F1) Animation  F2) Non Blocking Animation  F3) Animation 3  F4) Animation 4");
             ConsoleEx.WriteMenu(-1, 6, "Q)uit  A)ll off  W)eb UI");
         }
 
@@ -212,7 +253,7 @@ namespace NusbioConsole
                 if (g.Value.AsLed.ExecutionMode == ExecutionModeEnum.Blinking)
                     b.AppendFormat("{0}:Blinking, ", g.Value.Name);
                 else
-                    b.AppendFormat("{0}:{1}, ", g.Value.Name.Substring(4), g.Value.State ? "High" : "Low");
+                    b.AppendFormat("{0}:{1}, ", g.Value.Name.Substring(4), g.Value.State ? "High" : "Low ");
             }
             ConsoleEx.Bar(0, ConsoleEx.WindowHeight - 7, b.ToString().RemoveLastChar().RemoveLastChar(), ConsoleColor.Cyan, ConsoleColor.DarkCyan);
 
@@ -232,13 +273,13 @@ namespace NusbioConsole
                 return;
             }
 
-            var halfSecondTimeOut = new TimeOut(500);
+            var halfSecondTimeOut = new TimeOut(20);
 
             using (var nusbio = new Nusbio(serialNumber: serialNumber, webServerPort: 1964))
             {
                 nusbio.UrlEvent += NusbioUrlEvent;
                 Cls(nusbio);
-                while (nusbio.Loop())
+                while (nusbio.Loop(20))
                 {
                     if (Console.KeyAvailable)
                     {
@@ -268,9 +309,10 @@ namespace NusbioConsole
                         }
                         else
                         {
-                            if (key == ConsoleKey.F1) AnimateBlocking(nusbio);
-                            if (key == ConsoleKey.F2) AnimateNonBlocking(nusbio);
-                            if (key == ConsoleKey.F3) AnimateBlocking2(nusbio);
+                            if (key == ConsoleKey.F1) AnimateBlocking1(nusbio);
+                            if (key == ConsoleKey.F2) AnimateNonBlocking2(nusbio);
+                            if (key == ConsoleKey.F3) AnimateBlocking3(nusbio);
+                            if (key == ConsoleKey.F4) AnimateBlocking4(nusbio);
 
                             if (key == ConsoleKey.D0) ReverseGpio(NusbioGpio.Gpio0, nusbio);
                             if (key == ConsoleKey.D1) ReverseGpio(NusbioGpio.Gpio1, nusbio);
@@ -287,8 +329,7 @@ namespace NusbioConsole
                         ShowNusbioState(nusbio);
                     }
                     else { 
-                        if(halfSecondTimeOut.IsTimeOut())
-                            ShowNusbioState(nusbio);                        
+                        if(halfSecondTimeOut.IsTimeOut()) ShowNusbioState(nusbio);
                     }
                 }
             }            

@@ -30,7 +30,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MadeInTheUSB.i2c;
-
+using MadeInTheUSB.WinUtil;
 using int16_t = System.Int16; // Nice C# feature allowing to use same Arduino/C type
 using uint16_t = System.UInt16;
 using uint8_t = System.Byte;
@@ -48,6 +48,11 @@ namespace MadeInTheUSB.Adafruit
         public MultiLEDBackpackManager()
         {
             
+        }
+
+        public List<LEDBackpack> Backpacks
+        {
+            get { return this._backpacks; }
         }
 
         public LEDBackpack Add(int16_t width, int16_t height, Nusbio nusbio, NusbioGpio sdaOutPin, NusbioGpio sclPin, byte addr)
@@ -103,10 +108,22 @@ namespace MadeInTheUSB.Adafruit
                 b.DrawPixel(x, y, color);
         }
 
-        public void AnimateSetBrightness(int MAX_REPEAT, int onWaitTime = 20, int offWaitTime = 30) {
+        public void AnimateSetBrightness(int maxRepeat, int onWaitTime = 20, int offWaitTime = 40, int maxBrigthness = 15) {
 
-            foreach (var bp in this._backpacks)
-                bp.AnimateSetBrightness(MAX_REPEAT, onWaitTime, offWaitTime);
+            for (byte rpt = 0; rpt < maxRepeat; rpt++)
+            {
+                for (var b = 0; b < maxBrigthness; b++)
+                {
+                    this.SetBrightness(b);
+                    TimePeriod.Sleep(onWaitTime);
+                }
+                for (var b = maxBrigthness; b >= 0; b--)
+                {
+                    this.SetBrightness(b);
+                    TimePeriod.Sleep(offWaitTime);
+                }
+                TimePeriod.Sleep(offWaitTime*10);
+            }
         }
 
         public void SetBrightness(int b)

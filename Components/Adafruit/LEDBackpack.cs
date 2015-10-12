@@ -77,30 +77,31 @@ namespace MadeInTheUSB.Adafruit
     {
         private const string DEFAULT_I2C_ERROR_MESSAGE = "I2C command failed, check your connections";
 
-        private const byte HT16K33_BLINK_CMD              = 0x80;
-        private const byte HT16K33_BLINK_DISPLAYON        = 0x01;
-        private const byte HT16K33_BLINK_OFF              = 0;
-        private const byte HT16K33_BLINK_2HZ              = 1;
-        private const byte HT16K33_BLINK_1HZ              = 2;
-        private const byte HT16K33_BLINK_HALFHZ           = 3;
-        private const byte HT16K33_CMD_BRIGHTNESS         = 0xE0;
+        private const byte HT16K33_BLINK_CMD = 0x80;
+        private const byte HT16K33_BLINK_DISPLAYON = 0x01;
+        private const byte HT16K33_BLINK_OFF = 0;
+        private const byte HT16K33_BLINK_2HZ = 1;
+        private const byte HT16K33_BLINK_1HZ = 2;
+        private const byte HT16K33_BLINK_HALFHZ = 3;
+        private const byte HT16K33_CMD_BRIGHTNESS = 0xE0;
         private const byte HT16K33_CMD_TURN_OSCILLATOR_ON = 0x21;
 
-        public const int _displayBufferRowCount           = 8;
-        public byte[] _displayBuffer                      = new byte[_displayBufferRowCount];
+        public const int _displayBufferRowCount = 8;
+        public byte[] _displayBuffer = new byte[_displayBufferRowCount];
 
         protected I2CEngine _i2c;
         private Nusbio _nusbio;
-        
-        public LEDBackpack(int16_t width, int16_t height, Nusbio nusbio, NusbioGpio sdaOutPin, NusbioGpio sclPin):base(width, height)
+
+        public LEDBackpack(int16_t width, int16_t height, Nusbio nusbio, NusbioGpio sdaOutPin, NusbioGpio sclPin)
+            : base(width, height)
         {
             this._nusbio = nusbio;
-            this._i2c     = new I2CEngine(nusbio, sdaOutPin, sclPin, 0);
+            this._i2c = new I2CEngine(nusbio, sdaOutPin, sclPin, 0);
         }
-        
+
         public void DrawPixel(int x, int y, bool color)
         {
-            this.DrawPixel((int16_t) x, (int16_t) y, (uint16_t)(color ? 1 : 0));
+            this.DrawPixel((int16_t)x, (int16_t)y, (uint16_t)(color ? 1 : 0));
         }
 
         public override void DrawPixel(int16_t x, int16_t y, uint16_t color)
@@ -109,20 +110,21 @@ namespace MadeInTheUSB.Adafruit
             if ((x < 0) || (x >= 8)) return;
 
             // check _rotation, move pixel around if necessary
-             switch (this._rotation) {
-             case 1:
-               swap(ref x, ref y);
-               x = (int16_t)(8 - x - 1);
-               break;
-             case 2:
-               x = (int16_t)(8 - x - 1);
-               y = (int16_t)(8 - y - 1);
-               break;
-             case 3:
-               swap(ref x, ref y);
-               y = (int16_t)(8 - y - 1);
-               break;
-             }
+            switch (this._rotation)
+            {
+                case 1:
+                    swap(ref x, ref y);
+                    x = (int16_t)(8 - x - 1);
+                    break;
+                case 2:
+                    x = (int16_t)(8 - x - 1);
+                    y = (int16_t)(8 - y - 1);
+                    break;
+                case 3:
+                    swap(ref x, ref y);
+                    y = (int16_t)(8 - y - 1);
+                    break;
+            }
 
             // wrap around the x
             x += 7;
@@ -150,11 +152,11 @@ namespace MadeInTheUSB.Adafruit
                 this.Begin(addr);
                 return true;
             }
-            catch(I2CCommunicationException ex)
+            catch (I2CCommunicationException ex)
             {
                 return false;
             }
-            catch(System.Exception ex)
+            catch (System.Exception ex)
             {
                 return false;
             }
@@ -176,15 +178,17 @@ namespace MadeInTheUSB.Adafruit
             this.Clear(true);
         }
 
-        public void AnimateSetBrightness(int MAX_REPEAT, int onWaitTime = 17, int offWaitTime = 25) {
-
-            for (byte rpt = 0; rpt < MAX_REPEAT; rpt ++) { 
-
-                for (byte b = 0; b < 15; b++) { 
+        public void AnimateSetBrightness(int MAX_REPEAT, int onWaitTime = 20, int offWaitTime = 30)
+        {
+            for (byte rpt = 0; rpt < MAX_REPEAT; rpt++)
+            {
+                for (byte b = 0; b < 15; b++)
+                {
                     this.SetBrightness(b);
                     TimePeriod.Sleep(onWaitTime);
                 }
-                for (byte b = 15; b > 0; b--) { 
+                for (byte b = 15; b > 0; b--)
+                {
                     this.SetBrightness(b);
                     TimePeriod.Sleep(offWaitTime);
                 }
@@ -196,17 +200,25 @@ namespace MadeInTheUSB.Adafruit
             SetBrightness((byte)b);
         }
 
+        private byte _brightness;
+
+        public byte GetBrightness()
+        {
+            return this._brightness;
+        }
+
         public void SetBrightness(byte b)
         {
             if (b > 15) b = 15;
-            if (!this._i2c.Send1ByteCommand((byte) (HT16K33_CMD_BRIGHTNESS | b)))
+            this._brightness = b;
+            if (!this._i2c.Send1ByteCommand((byte)(HT16K33_CMD_BRIGHTNESS | b)))
                 throw new I2CCommunicationException(DEFAULT_I2C_ERROR_MESSAGE);
         }
 
         public void SetBlinkRate(byte b)
         {
             if (b > 3) b = 0; // turn off if not sure  
-            if(!this._i2c.Send1ByteCommand((byte)(HT16K33_BLINK_CMD | HT16K33_BLINK_DISPLAYON | (b << 1))))
+            if (!this._i2c.Send1ByteCommand((byte)(HT16K33_BLINK_CMD | HT16K33_BLINK_DISPLAYON | (b << 1))))
                 throw new I2CCommunicationException(DEFAULT_I2C_ERROR_MESSAGE);
         }
 

@@ -220,37 +220,46 @@ Yellow
         }
 
 
-        public static void RainbowDemo(APA102LEDStrip ledStripe, int jStep, APA102LEDStrip ledStripe2 = null)
+        public static void RainbowDemo(APA102LEDStrip ledStrip0, int jStep, APA102LEDStrip ledStrip1 = null)
         {
             Console.Clear();
             ConsoleEx.TitleBar(0, "Rainbow Demo", ConsoleColor.White, ConsoleColor.DarkBlue);
-            ConsoleEx.WriteMenu(-1, 4, "Q)uit");
+            ConsoleEx.WriteMenu(-1, 6, "Q)uit");
 
-            int wait        = 20;
+            int wait        = 26;
             var quit        = false;
-            ledStripe.AllOff();
-            ledStripe2.AllOff();
+            var maxStep     = 256;           
+            var brightness = 5;
+            ledStrip0.AllOff();
+            ledStrip1.AllOff();
 
             while (!quit) 
             {                
-                for(var j=0; j < 256; j += jStep) 
+                var j2 = maxStep;
+                for(var j=0; j < maxStep; j += jStep) 
                 {
-                    ledStripe.Reset();
-                    ledStripe2.Reset();
+                    j2 = j;
 
-                    for (var i = 0; i < ledStripe.MaxLed; i++)
-                        ledStripe.AddRGBSequence(false, 10, APA102LEDStrip.Wheel(((i*256/ledStripe.MaxLed) + j)));
-                    for (var i = 0; i < ledStripe2.MaxLed; i++)
-                        ledStripe2.AddRGBSequence(false, 10, APA102LEDStrip.Wheel(((i*256/ledStripe.MaxLed) + j)));
+                    ledStrip0.Reset();
+                    ledStrip1.Reset();
 
-                    foreach (var bkColor in ledStripe.LedColors)
+                    for (var i = 0; i < ledStrip0.MaxLed; i++)
+                        ledStrip0.AddRGBSequence(false, brightness, APA102LEDStrip.Wheel(((i * maxStep / ledStrip0.MaxLed) + j)));
+
+                    for (var i = 0; i < ledStrip1.MaxLed; i++)
+                        ledStrip1.AddRGBSequence(false, brightness, APA102LEDStrip.Wheel(((i * maxStep / ledStrip0.MaxLed) + j2)));
+
+                    foreach (var bkColor in ledStrip0.LedColors)
                     {
-                        ConsoleEx.Gotoxy(1, 2);
-                        ConsoleEx.WriteLine(String.Format("Color:{0}, Html:{1}, Dec:{2}", bkColor.Name, APA102LEDStrip.ToHexValue(bkColor), APA102LEDStrip.ToDecValue(bkColor)), ConsoleColor.DarkCyan);
+                        ConsoleEx.WriteLine(1, 2,String.Format("Strip 0 - Color:{0}, Html:{1}, Dec:{2}", bkColor.Name, APA102LEDStrip.ToHexValue(bkColor), APA102LEDStrip.ToDecValue(bkColor)), ConsoleColor.DarkCyan);
+                    }
+                    foreach (var bkColor in ledStrip1.LedColors)
+                    {
+                        ConsoleEx.WriteLine(1, 3,String.Format("Strip 1 - Color:{0}, Html:{1}, Dec:{2}", bkColor.Name, APA102LEDStrip.ToHexValue(bkColor), APA102LEDStrip.ToDecValue(bkColor)), ConsoleColor.DarkCyan);
                     }
 
-                    ledStripe.Show();
-                    ledStripe2.Show().Wait(wait);
+                    ledStrip0.Show();
+                    ledStrip1.Show().Wait(wait);
 
                     if(Console.KeyAvailable) 
                     {
@@ -263,8 +272,8 @@ Yellow
                     }
                 }
             }
-            ledStripe.AllOff();
-            ledStripe2.AllOff();
+            ledStrip0.AllOff();
+            ledStrip1.AllOff();
         }
 
         public static void LineDemo(APA102LEDStrip ledStripe)

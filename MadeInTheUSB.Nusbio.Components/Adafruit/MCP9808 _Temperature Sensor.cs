@@ -62,8 +62,13 @@ namespace MadeInTheUSB.Adafruit
         public const int MCP9808_REG_LOWER_TEMP         = 0x03;
         public const int MCP9808_REG_CRIT_TEMP          = 0x04;
         public const int MCP9808_REG_AMBIENT_TEMP       = 0x05;
+
         public const int MCP9808_REG_MANUF_ID           = 0x06;
+        public const int MCP9808_REG_MANUF_ID_ANSWER    = 0x0054;
+
         public const int MCP9808_REG_DEVICE_ID          = 0x07;
+        public const int MCP9808_REG_DEVICE_ID_ANSWER   = 0x0400;
+        
 
         public const double CELCIUS_TO_KELVIN = 274.15;
 
@@ -85,12 +90,18 @@ namespace MadeInTheUSB.Adafruit
 
         public bool Begin(byte deviceAddress = MCP9808_I2CADDR_DEFAULT)
         {
-            this._i2c.DeviceId = deviceAddress;
-            
-            if (read16(MCP9808_REG_MANUF_ID) != 0x0054) return false;
-            if (read16(MCP9808_REG_DEVICE_ID) != 0x0400) return false;
-
-            return true;
+            try
+            {
+                this._i2c.DeviceId = deviceAddress;
+                if (read16(MCP9808_REG_MANUF_ID) != MCP9808_REG_MANUF_ID_ANSWER) return false;
+                if (read16(MCP9808_REG_DEVICE_ID) != MCP9808_REG_DEVICE_ID_ANSWER) return false;
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex.ToString());
+                return false;
+            }
         }
 
         public double GetTemperature(TemperatureType type = TemperatureType.Celsius)

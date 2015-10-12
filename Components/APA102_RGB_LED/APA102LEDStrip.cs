@@ -392,7 +392,8 @@ namespace MadeInTheUSB.Components.APA
 
         private void Transfer(params int[] buffer)
         {
-            var gs = new GpioSequence((this._nusbio as Nusbio).GetGpioMask(), this._nusbio.GetTransferBufferSize());
+            var s = this._nusbio.GetTransferBufferSize();
+            var gs = new GpioSequence((this._nusbio as Nusbio).GetGpioMask(), s);
             var i = 0;
             while (i < buffer.Length)
             {

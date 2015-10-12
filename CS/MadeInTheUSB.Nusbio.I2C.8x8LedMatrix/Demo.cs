@@ -2,7 +2,6 @@
    Copyright (C) 2015 MadeInTheUSB LLC
 
    The MIT License (MIT)
-       
 
         Permission is hereby granted, free of charge, to any person obtaining a copy
         of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +20,19 @@
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
         THE SOFTWARE.
- 
-    Adafruit 8x8 LED matrix with backpack
-    This program control Adafruit 8x8 LED matrix with backpack
+    
+    This program controls up to 2 Adafruit 8x8 LED matrix with backpack small or large
+  
         https://learn.adafruit.com/adafruit-led-backpack/overview
-            https://www.adafruit.com/product/872
-            https://www.adafruit.com/product/1049
+ 
+            Small:
+                Adafruit Mini 0.8" 8x8 LED Matrix w/I2C Backpack - Yellow-Green https://www.adafruit.com/product/872
+                Adafruit Small 1.2" 8x8 LED Matrix w/I2C Backpack - Red https://www.adafruit.com/product/1049
+ 
+            Large:
+  
+            Small 1.2" 8x8 Ultra Bright Square Amber LED Matrix + Backpack https://www.adafruit.com/products/1854
+            Small 1.2" 8x8 Bright Square Pure Green LED Matrix + Backpack https://www.adafruit.com/products/1856
   
 */
 using System;
@@ -47,8 +53,10 @@ namespace LightSensorConsole
 {
     class Demo
     {
-        private static LEDBackpack ledMatrix01;
-        private static LEDBackpack ledMatrix02;
+        private static LEDBackpack             _ledMatrix00;
+        private static LEDBackpack             _ledMatrix01;
+        private static LEDBackpack             _ledMatrix02;
+        private static LEDBackpack             _ledMatrix03;
         private static MultiLEDBackpackManager _multiLEDBackpackManager;
 
         static string GetAssemblyProduct()
@@ -101,9 +109,6 @@ namespace LightSensorConsole
             int MAX_REPEAT = 5;
             int wait       = 400;
 
-            _multiLEDBackpackManager.SetBrightness(3);
-            _multiLEDBackpackManager.SetRotation(1);
-
             ConsoleEx.Bar(0, 5, "DrawBitmap Demo", ConsoleColor.Yellow, ConsoleColor.Red);
             for (byte rpt = 0; rpt <= MAX_REPEAT; rpt++)
             {
@@ -121,12 +126,28 @@ namespace LightSensorConsole
         static void Animate()
         {
             int wait       = 100;
-            int MAX_REPEAT = 5;
+            int maxRepeat = 5;
 
-            DrawRoundRectDemo(wait);
-            DrawPixelDemo(MAX_REPEAT);
+            DrawRoundRectDemo(wait, maxRepeat);
+
+            _multiLEDBackpackManager.SetRotation(0);
+            DrawPixelDemo(maxRepeat);
+
+            _multiLEDBackpackManager.SetRotation(1);
+            DrawPixelDemo(maxRepeat);
+
+            _multiLEDBackpackManager.SetRotation(2);
+            DrawPixelDemo(maxRepeat);
+
+            _multiLEDBackpackManager.SetRotation(3);
+            DrawPixelDemo(maxRepeat);
+            
+            SetDefaultOrientations();
+            BrightnessDemo(maxRepeat);
+            SetBrightnesses();
+
             DrawCircleDemo(wait);
-            DrawRectDemo(MAX_REPEAT, wait);
+            DrawRectDemo(maxRepeat, wait);
         }
 
         private static void DrawRectDemo(int MAX_REPEAT, int wait)
@@ -158,65 +179,93 @@ namespace LightSensorConsole
             _multiLEDBackpackManager.Clear(true);
         }
 
+        private class Coordinate
+        {
+            public Int16 X, Y;
+        }
+
         private static void DrawCircleDemo(int wait)
         {
             ConsoleEx.Bar(0, 5, "DrawCircle Demo", ConsoleColor.Yellow, ConsoleColor.Red);
             _multiLEDBackpackManager.Clear();
-            for (byte y = 1; y <= 4; y++)
+
+            var circleLocations = new List<Coordinate>()
             {
-                _multiLEDBackpackManager.Clear();
-                _multiLEDBackpackManager.DrawCircle(4, 4, y, 1);
-                _multiLEDBackpackManager.WriteDisplay();
-                TimePeriod.Sleep(wait*2);
+                new Coordinate { X = 4, Y = 4},
+                new Coordinate { X = 3, Y = 3},
+                new Coordinate { X = 5, Y = 5},
+                new Coordinate { X = 2, Y = 2},
+            };
+
+            foreach (var circleLocation in circleLocations)
+            {
+                for (byte ray = 0; ray <= 4; ray++)
+                {
+                    _multiLEDBackpackManager.Clear();
+                    _multiLEDBackpackManager.DrawCircle(circleLocation.X, circleLocation.Y, ray, 1);
+                    _multiLEDBackpackManager.WriteDisplay();
+                    TimePeriod.Sleep(wait*2);
+                }
             }
         }
 
-        private static void DrawPixelDemo(int MAX_REPEAT)
+        private static void BrightnessDemo(int maxRepeat)
         {
+            ConsoleEx.Bar(0, 5, "Brightness Demo", ConsoleColor.Yellow, ConsoleColor.Red);
+            _multiLEDBackpackManager.AnimateSetBrightness(maxRepeat-2);
+            _multiLEDBackpackManager.Clear(true);
+        }
+
+        private static void DrawPixelDemo(int maxRepeat)
+        {
+            maxRepeat = 4;
             ConsoleEx.Bar(0, 5, "DrawPixel Demo", ConsoleColor.Yellow, ConsoleColor.Red);
-            _multiLEDBackpackManager.SetBrightness(3);
-            for (byte rpt = 0; rpt <= MAX_REPEAT; rpt += 2)
+            for (byte rpt = 0; rpt < maxRepeat; rpt += 2)
             {
                 _multiLEDBackpackManager.Clear();
                 TimePeriod.Sleep(250);
-                for (var r = 0; r < ledMatrix01.Width; r++)
+                for (var r = 0; r < _ledMatrix00.Height; r++)
                 {
-                    for (var c = 0; c < ledMatrix01.Width; c++)
+                    for (var c = 0; c < _ledMatrix00.Width; c++)
                     {
                         _multiLEDBackpackManager.DrawPixel(r, c, true);
-                        _multiLEDBackpackManager.WriteDisplay();
+                        if ((true)||(c%2 != 0)) // Reduce the number of refresh and improve speed
+                        {
+                            _multiLEDBackpackManager.WriteDisplay();
+                            TimePeriod.Sleep(13);
+                        }
                     }
                 }
             }
-
-            _multiLEDBackpackManager.AnimateSetBrightness(MAX_REPEAT-1);
-
-            _multiLEDBackpackManager.Clear(true);
         }
 
-        private static void DrawRoundRectDemo(int wait)
+        private static void DrawRoundRectDemo(int wait, int maxRepeat)
         {
             ConsoleEx.Bar(0, 5, "DrawRoundRect Demo", ConsoleColor.Yellow, ConsoleColor.Red);
-            _multiLEDBackpackManager.Clear(true);
-            var yy = 0;
-            while (yy <= 3)
+
+            for (byte rpt = 0; rpt <= maxRepeat; rpt += 2)
             {
-                _multiLEDBackpackManager.DrawRoundRect(yy, yy, 8 - (yy*2), 8 - (yy*2), 2, 1);
-                _multiLEDBackpackManager.WriteDisplay();
+                _multiLEDBackpackManager.Clear(true);
+                var yy = 0;
+                while (yy <= 3)
+                {
+                    _multiLEDBackpackManager.DrawRoundRect(yy, yy, 8 - (yy*2), 8 - (yy*2), 2, 1);
+                    _multiLEDBackpackManager.WriteDisplay();
+                    TimePeriod.Sleep(wait);
+                    yy += 1;
+                }
                 TimePeriod.Sleep(wait);
-                yy += 1;
-            }
-            TimePeriod.Sleep(wait);
-            yy = 2;
-            while (yy >= 0)
-            {
-                _multiLEDBackpackManager.DrawRoundRect(yy, yy, 8 - (yy*2), 8 - (yy*2), 2, 0);
-                _multiLEDBackpackManager.WriteDisplay();
+                yy = 2;
+                while (yy >= 0)
+                {
+                    _multiLEDBackpackManager.DrawRoundRect(yy, yy, 8 - (yy*2), 8 - (yy*2), 2, 0);
+                    _multiLEDBackpackManager.WriteDisplay();
+                    TimePeriod.Sleep(wait);
+                    yy -= 1;
+                }
+                _multiLEDBackpackManager.Clear(true);
                 TimePeriod.Sleep(wait);
-                yy -= 1;
             }
-            _multiLEDBackpackManager.Clear(true);
-            TimePeriod.Sleep(wait);
         }
 
         static void Cls(Nusbio nusbio)
@@ -233,41 +282,84 @@ namespace LightSensorConsole
 
         public static bool InitLEDMatrixes(Nusbio nusbio)
         {
-            var clockPin           = NusbioGpio.Gpio6; // White
-            var dataOutPin         = NusbioGpio.Gpio7; // Green
-            // BackPack address A0, A1, A2, (Carefull the label are inversed)
-            // None soldered 0x70
-            // A0 Shorted = 0x70 + 1 = 0x71
-            // A2 Shorted = 0x70 + 2 = 0x72
-            // A3 Shorted = 0x70 + 4 = 0x74
-            // A0+A1 Shorted = 0x70 + 2 + 1 = 0x73
-            // A0+A2 Shorted = 0x70 + 4 + 1 = 0x75
+            // Use the Nusbio's Adafruit I2C Adapter to plug up to 2 Adafruit LED Matrix
+            // into Nusbio. You can also use a bread board.
 
-            byte LED_MATRIX_01_I2C_ADDR = 0x70;
+            var clockPin           = NusbioGpio.Gpio0; // White
+            var dataOutPin         = NusbioGpio.Gpio1; // Green
+
+            // The first Led matrix must have the default I2C id which is 0x70
+            // The second one if plugged must have the is 0x71 (A0 Shorted)
+            // Or change the I2C Id
+
+            // BackPack address A0, A1, A2, (Carefull the label are inversed)
+            // None soldered    = 0x70
+            // A0 Shorted       = 0x70 + 1 = 0x71
+            // A2 Shorted       = 0x70 + 2 = 0x72
+            // A3 Shorted       = 0x70 + 4 = 0x74
+            // A0+A1 Shorted    = 0x70 + 2 + 1 = 0x73
+            // A0+A2 Shorted    = 0x70 + 4 + 1 = 0x75
 
             _multiLEDBackpackManager = new MultiLEDBackpackManager();
             _multiLEDBackpackManager.Clear();
-            
-            ledMatrix01 = ConsoleEx.WaitOnComponentToBePlugged<LEDBackpack>("LED Matrix", () => {
-                    return _multiLEDBackpackManager.Add(8, 8, nusbio, dataOutPin, clockPin, LED_MATRIX_01_I2C_ADDR);
+
+            const byte LED_MATRIX_00_I2C_ADDR = 0x70;
+            _ledMatrix00 = ConsoleEx.WaitOnComponentToBePlugged<LEDBackpack>("LED Matrix", () => {
+                    return _multiLEDBackpackManager.Add(8, 8, nusbio, dataOutPin, clockPin, LED_MATRIX_00_I2C_ADDR);
             });
-            if(ledMatrix01 == null)
+            if(_ledMatrix00 == null)
                 return false;
 
-//          ledMatrix02 = _multiLEDBackpackManager.Add(8, 8, nusbio, dataOutPin, clockPin, LED_MATRIX_02_I2C_ADDR);
+            const byte LED_MATRIX_01_I2C_ADDR = 0x71;
+            _ledMatrix01 = _multiLEDBackpackManager.Add(8, 8, nusbio, dataOutPin, clockPin, LED_MATRIX_01_I2C_ADDR);
+
+            const byte LED_MATRIX_02_I2C_ADDR = 0x72;
+            _ledMatrix02 = _multiLEDBackpackManager.Add(8, 8, nusbio, dataOutPin, clockPin, LED_MATRIX_02_I2C_ADDR);
+
+            const byte LED_MATRIX_03_I2C_ADDR = 0x73;
+            _ledMatrix03 = _multiLEDBackpackManager.Add(8, 8, nusbio, dataOutPin, clockPin, LED_MATRIX_03_I2C_ADDR);
+            
+            SetDefaultOrientations();
+            SetBrightnesses();
+
             return true;
+        }
+
+        private static void SetBrightnesses()
+        {
+            _ledMatrix00.SetBrightness(4);
+            if(_ledMatrix01 != null)
+                _ledMatrix01.SetBrightness(4);
+            if(_ledMatrix02 != null)
+                _ledMatrix02.SetBrightness(1);
+            if(_ledMatrix03 != null)
+                _ledMatrix03.SetBrightness(10);
+        }
+
+        private static void SetDefaultOrientations()
+        {
+            // You may need to change the rotaton depending on how the Adafruit I2C devices are plugged
+            // into Nusbio, your board or your breadboard.
+            _ledMatrix00.SetRotation(0);
+            if(_ledMatrix01 != null)
+                _ledMatrix01.SetRotation(2);
+            if(_ledMatrix02 != null)
+                _ledMatrix02.SetRotation(0);
+            if(_ledMatrix03 != null)
+                _ledMatrix03.SetRotation(0);
         }
 
         public static void Run(string[] args)
         {
             Console.WriteLine("Nusbio initialization");
             var serialNumber = Nusbio.Detect();
-            //var serialNumber = "LD2Ub9pAg";
             if (serialNumber == null) // Detect the first Nusbio available
             {
                 Console.WriteLine("nusbio not detected");
                 return;
             }
+
+            //Nusbio.BaudRate = 9600/8;
 
             using (var nusbio = new Nusbio(serialNumber)) // , 
             {
@@ -291,6 +383,8 @@ namespace LightSensorConsole
                         }
                         if (k == ConsoleKey.I)
                         {
+                            //_ledMatrix00.SetRotation(2);
+                            //_ledMatrix01.SetRotation(0);
                             DisplayImage();
                         }
                         if (k == ConsoleKey.F)
@@ -305,7 +399,7 @@ namespace LightSensorConsole
                         if (k == ConsoleKey.C)
                         {
                             Cls(nusbio);
-                            ledMatrix01.Clear(true);
+                            _ledMatrix00.Clear(true);
                         }
                         Cls(nusbio);
                     }

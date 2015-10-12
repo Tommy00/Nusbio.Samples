@@ -43,6 +43,7 @@ Module Demo
 
 
     Public Sub BrigthnessDemo(ledStrip0 As APA102LEDStrip, ledStrip1 As APA102LEDStrip)
+
         Console.Clear()
         ConsoleEx.TitleBar(0, "Brightness Demo", ConsoleColor.White, ConsoleColor.DarkBlue)
         ConsoleEx.WriteMenu(-1, 3, "Q)uit")
@@ -54,7 +55,9 @@ Module Demo
         Dim b = 0
 
         While Not Console.KeyAvailable
+
             For Each sBColor In bkColors
+
                 Dim bkColor = APA102LEDStrip.DrawingColors(sBColor)
 
                 For b = 1 To APA102LEDStrip.MAX_BRIGHTNESS Step 2
@@ -66,8 +69,8 @@ Module Demo
                 If Console.KeyAvailable Then
                     Exit For
                 End If
-                ledStrip0.Wait(wait * 7)
-                ' Wait when the fade in is done
+                ledStrip0.Wait(wait * 7) ' Wait when the fade in is done
+
                 For b = APA102LEDStrip.MAX_BRIGHTNESS To 0 Step -2
                     ConsoleEx.Write(1, 2, String.Format("Brightness {0:00}", b), ConsoleColor.DarkCyan)
                     ledStrip0.SetColor(b, bkColor).Show()
@@ -77,8 +80,7 @@ Module Demo
                 If Console.KeyAvailable Then
                     Exit For
                 End If
-                ' Wait when the fade out is deon
-                ledStrip0.Wait(wait * 10)
+                ledStrip0.Wait(wait * 10) ' Wait when the fade out is done
             Next
         End While
         ledStrip0.AllOff()
@@ -87,6 +89,7 @@ Module Demo
     End Sub
 
     Public Sub ColorsSequence(ledStripe0 As APA102LEDStrip, ledStripe1 As APA102LEDStrip)
+
         Dim wait = 200
         Dim quit = False
         ledStripe0.Brightness = 7
@@ -121,14 +124,6 @@ Module Demo
         Dim k = Console.ReadKey(True).Key
     End Sub
 
-    '=======================================================
-    'Service provided by Telerik (www.telerik.com)
-    'Conversion powered by NRefactory.
-    'Twitter: @telerik
-    'Facebook: facebook.com/telerik
-    '=======================================================
-
-
     Sub RainbowDemo(ledStripe As APA102LEDStrip, jStep As Integer, Optional ledStripe2 As APA102LEDStrip = Nothing)
 
         Console.Clear()
@@ -137,13 +132,14 @@ Module Demo
 
         Dim wait = 10
         Dim quit = False
-        Dim j = 0, i = 0
+        Dim j = 0, i = 0, j2 = 0
+        Dim maxStep = 256
         ledStripe.AllOff()
         ledStripe2.AllOff()
 
         While (Not quit)
 
-            For j = 0 To 256 Step jStep
+            For j = 0 To maxStep Step jStep
 
                 ledStripe.Reset()
                 ledStripe2.Reset()
@@ -190,9 +186,9 @@ Module Demo
         }
         Dim availableGpiosOnRgbLedAdaptersIndex = 0
 
-        Dim wait As Integer = 10
+        Const wait As Integer = 10
         Dim quit = False
-        Dim rgbLedIntensisty = 30
+        Const rgbLedIntensisty As Integer = 30
         Dim i = 0
         ledStripe.AllOff()
         ledStripe2.AllOff()
@@ -208,14 +204,16 @@ Module Demo
                 nusbio(availableGpiosOnRgbLedAdapters(availableGpiosOnRgbLedAdapters.Count - 1)).AsLed.[Set](False)
             End If
 
-            If System.Threading.Interlocked.Increment(availableGpiosOnRgbLedAdaptersIndex) = availableGpiosOnRgbLedAdapters.Count Then
+            availableGpiosOnRgbLedAdaptersIndex += 1
+            If availableGpiosOnRgbLedAdaptersIndex = availableGpiosOnRgbLedAdapters.Count Then
                 availableGpiosOnRgbLedAdaptersIndex = 0
             End If
 
-
             ' Animate the 2 RGB LED connected to gpio 4,5 and 6,7 usin SPI like protocol
             Dim j = 0
+
             While j < 256
+
                 ledStripe.Reset()
                 ledStripe2.Reset()
 
@@ -248,11 +246,8 @@ Module Demo
         ledStripe2.AllOff()
     End Sub
 
-
-    
-
-
     Public Sub Run()
+
         Console.WriteLine("Nusbio initialization")
         Dim serialNumber As String = Nusbio.Detect()
         If (serialNumber Is Nothing) Then ' Detect the first Nusbio available
@@ -267,6 +262,7 @@ Module Demo
             Dim ledStrip1 As APA102LEDStrip = APA102LEDStrip.Extensions.TwoStripAdapter.Init(nusbio, APA102LEDStrip.Extensions.LedPerMeter._1Led, APA102LEDStrip.Extensions.StripIndex._1, 1)
 
             While (nusbio.Loop())
+
                 If (Console.KeyAvailable) Then
 
                     Dim k = Console.ReadKey(True).Key

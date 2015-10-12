@@ -84,7 +84,8 @@ namespace MadeInTheUSB.Adafruit
 
     public class Adafruit_GFX
     {
-        private int16_t WIDTH, HEIGHT;   // This is the 'raw' display w/h - never changes
+        private int16_t WIDTH = 8;   // This is the 'raw' display w/h - never changes
+        private int16_t HEIGHT = 8;   // This is the 'raw' display w/h - never changes
         public int16_t Width, Height;
         public uint8_t _rotation;
         UInt16 _textcolor, _textbgcolor;
@@ -130,6 +131,8 @@ namespace MadeInTheUSB.Adafruit
                         this.Width = HEIGHT;
                         this.Height = WIDTH;
                         break;
+                    default:
+                        throw new ArgumentException(string.Format("Invalid rotation:{0}", _rotation));
                 }
             }
         }
